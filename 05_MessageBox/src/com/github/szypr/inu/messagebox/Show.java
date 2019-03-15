@@ -24,14 +24,14 @@ public class Show {
 	private static Button btnCancel = new Button("Anuluj");
 	private static Button btnOk = new Button("OK");
 	private static Button btnAbort = new Button("Przerwij");
-	private static Button btnRetrey = new Button("Wznów");
+	private static Button btnRetrey = new Button("WznÃ³w");
 	private static Button btnIgnore = new Button("Ignoruj");
 	private static Label label= new Label();
 	private static HBox hBox1 = new HBox();
 	private static HBox hBox2 = new HBox();
 	private static VBox vBox = new VBox();
 	private static Scene scene= new Scene(vBox, 500, 150);
-	private static int result;
+	private static MessageBoxResult result;
 	
 	
 	public enum MessageBoxIcon {Information("StatusInformation_64x.png"), Warning("StatusWarning_64x.png"), Alert("StatusAlert_64x.png"), CriticalError("StatusCriticalError_64x.png");
@@ -50,31 +50,31 @@ public class Show {
 			
 			if(this == OK) {
 				btnOk.setDefaultButton(true);
-				btnOk.setOnAction(e -> {stage.close(); result = 1;});
+				btnOk.setOnAction(e -> {stage.close(); result = OK;});
 			}
 			else if(this==Cancel) {
 				btnCancel.setCancelButton(true);
-				btnCancel.setOnAction(e -> {stage.close(); result = 2;});
+				btnCancel.setOnAction(e -> {stage.close(); result = Cancel;});
 			}
 			else if(this==Yes) {
 				btnYes.setDefaultButton(true);
-				btnYes.setOnAction(e -> {stage.close(); result = 3;});
+				btnYes.setOnAction(e -> {stage.close(); result = Yes;});
 			}
 			else if(this==No) {
 				btnNo.setCancelButton(true);
-				btnNo.setOnAction(e -> {stage.close(); result = 4;});
+				btnNo.setOnAction(e -> {stage.close(); result = No;});
 			}
 			else if(this==Abort) {
 				btnAbort.setCancelButton(true);
-				btnAbort.setOnAction(e -> {stage.close(); result = 5;});
+				btnAbort.setOnAction(e -> {stage.close(); result = Abort;});
 			}
 			else if(this==Retrey) {
 				btnRetrey.setDefaultButton(true);
-				btnRetrey.setOnAction(e -> {stage.close(); result = 6;});
+				btnRetrey.setOnAction(e -> {stage.close(); result = Retrey;});
 			}
 			else if(this==Ignore) {
 				
-				btnIgnore.setOnAction(e -> {stage.close(); result = 7;});
+				btnIgnore.setOnAction(e -> {stage.close(); result = Ignore;});
 				
 			}
 		}
@@ -93,11 +93,12 @@ public class Show {
 		stage.setTitle(title);
 		stage.initModality(Modality.APPLICATION_MODAL);
 		stage.showAndWait();
-		System.out.println(getResult());
+		getResult();
+		
 		
 	}
 	
-	//POZOSTA£E METODY
+	//POZOSTAï¿½E METODY
 	
 	public static void setHBox1(String msg, MessageBoxIcon ico) {
 		
@@ -110,7 +111,7 @@ public class Show {
 		
 		InputStream in = ClassLoader.getSystemResourceAsStream(ico.getMessageBoxIconName());
 		if (in==null) {
-			Label imageView= new Label("tutaj powinien byæ obrazek");
+			Label imageView= new Label("tutaj powinien byï¿½ obrazek");
 			hBox1.getChildren().addAll(imageView, label);	
 		}
 		else {
@@ -220,7 +221,7 @@ public class Show {
 		btnIgnore.setFont( Font.font(label.getFont().getName(), FontWeight.BOLD, label.getFont().getSize()));
 	}
 	
-	public static int getResult() {
+	public static MessageBoxResult getResult() {
 		return result;
 	}
 		
